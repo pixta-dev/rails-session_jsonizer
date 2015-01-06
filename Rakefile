@@ -14,10 +14,12 @@ RDoc::Task.new(:rdoc) do |rdoc|
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
 
+task :spec do
+  Dir.chdir './spec/dummy' do
+    system 'bundle exec rspec'
+  end
+end
 
-
-
-
+task :default => :spec
 
 Bundler::GemHelper.install_tasks
-
