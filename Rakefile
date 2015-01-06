@@ -16,7 +16,7 @@ end
 
 task :spec do
   Dir.chdir './spec/dummy' do
-    system 'bundle exec rspec'
+    system 'bundle exec rspec' or abort
   end
 end
 
