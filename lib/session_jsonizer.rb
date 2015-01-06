@@ -9,10 +9,6 @@ module SessionJsonizer
         if session['flash']
           session['flash'] = load_flash(session['flash'])
         end
-
-        session.select { |k, v| k != 'flash' && v.kind_of?(Hash) }.each do |key, value|
-          session[key] = value.symbolize_keys
-        end
       end
     else
       ::Marshal.load(value)
@@ -46,6 +42,7 @@ module SessionJsonizer
 
     def dump_flash(flash)
       flash.sweep
+      flash.to_hash
     end
   end
 

@@ -14,11 +14,13 @@ describe 'session test' do
 
   before do
     post '/session_test/set_session', session: session_hash, flash: {notice: notice}
+    get '/session_test'
   end
 
   describe 'stored session' do
-    it { expect(session[:foo]).to eq(session_hash['foo']) }
-    it { expect(flash[:notice]).to eq(notice) }
+    let(:result) { Marshal.load(response.body) }
+    it { expect(result[:session]['foo']).to eq(session_hash['foo']) }
+    it { expect(result[:flash][:notice]).to eq(notice) }
   end
 
   describe 'flash sweep' do
