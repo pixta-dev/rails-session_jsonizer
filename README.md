@@ -13,11 +13,17 @@ serialize session into JSON in the same format.
 
 ## Usage
 
-```ruby
-require 'session_jsonizer'
+### In controller
 
+```ruby
 session[:foo] = 'bar'
 flash[:alert] = 'something went wrong'
+```
+
+### Serialize
+
+```ruby
+require 'session_jsonizer'
 
 # dump
 json = SessionJsonizer.dump(session)
@@ -26,4 +32,13 @@ json # => '{"foo":"bar", "flash":{"alert":"something went wrong"}, ...}'
 
 # load
 session = SessionJsonizer.load(json)
+```
+
+### Example: Store session into memcached as JSON using [dalli](https://github.com/mperham/dalli)
+
+```ruby
+# config/initializers/session_store.rb
+
+require 'action_dispatch/middleware/session/dalli_store'
+Rails.application.config.session_store :dalli_store, serializer: SessionJsonizer, ...
 ```
