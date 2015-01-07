@@ -31,8 +31,8 @@ module SessionJsonizer
       { 'flashes' => data, 'discard' => [] }
     end
 
-    def dump_flash(flash)
-      ActionDispatch::Flash::FlashHash.from_session_value(flash).to_hash
+    def dump_flash(session_value)
+      ActionDispatch::Flash::FlashHash.from_session_value(session_value).to_hash
     end
 
   when 3

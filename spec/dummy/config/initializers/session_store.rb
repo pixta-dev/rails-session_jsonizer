@@ -1,8 +1,12 @@
 module ActionDispatch
   module Session
-    class TestStore < ActionDispatch::Session::AbstractStore
+    class TestStore < AbstractStore
       cattr_accessor :session_jsons
       self.session_jsons = {}
+
+      def session_exists?(env)
+        true
+      end
 
       def get_session(env, sid)
         json = self.class.session_jsons[sid]

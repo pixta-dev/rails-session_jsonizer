@@ -7,10 +7,12 @@ class SessionTestController < ApplicationController
     params[:flash].each do |k, v|
       flash[k] = v
     end
-    render nothing: true
+    redirect_to session_test_index_path
   end
 
   def index
-    render text: Marshal.dump({session: session.to_hash, flash: flash.to_hash})
+    # Use flash to sweep it
+    flash[:notice]
+    render text: Marshal.dump({session: session.to_hash, flash: flash.to_hash.symbolize_keys})
   end
 end

@@ -17,8 +17,9 @@ describe 'session test' do
     get '/session_test'
   end
 
+  let(:result) { Marshal.load(response.body) }
+
   describe 'stored session' do
-    let(:result) { Marshal.load(response.body) }
     it { expect(result[:session]['foo']).to eq(session_hash['foo']) }
     it { expect(result[:flash][:notice]).to eq(notice) }
   end
@@ -28,6 +29,6 @@ describe 'session test' do
       get '/session_test'
     end
 
-    it { expect(flash[:notice]).to be_nil }
+    it { expect(result[:flash][:notice]).to be_nil }
   end
 end
