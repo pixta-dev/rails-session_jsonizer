@@ -13,6 +13,6 @@ class SessionTestController < ApplicationController
   def index
     # Use flash to sweep it
     flash[:notice]
-    render text: Marshal.dump({session: session.to_hash, flash: flash.to_hash.symbolize_keys})
+    render text: Marshal.dump({session: session.to_hash.symbolize_keys, flash: flash.to_hash.symbolize_keys})
   end
 end

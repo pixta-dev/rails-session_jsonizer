@@ -5,11 +5,18 @@ module SessionJsonizer
   def load(value)
     ::Rails.logger.debug "serializer load: #{value}"
     if value.first == '{'
-      ::JSON.load(value).tap do |session|
-        if session['flash']
-          session['flash'] = load_flash(session['flash'])
-        end
-      end
+      ::JSON.load(value).map do |key, value|
+        new_value =
+          case
+          when key == 'flash'
+            load_flash(value)
+          when value.is_a?(Hash)
+            value.with_indifferent_access
+          else
+            value
+          end
+        [key, new_value]
+      end.to_h
     else
       ::Marshal.load(value)
     end

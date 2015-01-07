@@ -4,9 +4,9 @@ describe 'session test' do
 
   let(:session_hash) {
     {
-      'foo' => {
+      :foo => {
         'bar' => 'baz',
-        'hoge' => ['piyo', 'fuga']
+        :hoge => ['piyo', 'fuga']
       }
     }
   }
@@ -20,7 +20,7 @@ describe 'session test' do
   let(:result) { Marshal.load(response.body) }
 
   describe 'stored session' do
-    it { expect(result[:session]['foo']).to eq(session_hash['foo']) }
+    it { expect(result[:session]).to include(session_hash) }
     it { expect(result[:flash][:notice]).to eq(notice) }
   end
 
