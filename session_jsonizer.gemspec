@@ -9,9 +9,10 @@ Gem::Specification.new do |s|
   s.version     = SessionJsonizer::VERSION
   s.authors     = ["Ryohei Ikegami"]
   s.email       = ["iofg2100@gmail.com"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of SessionJsonizer."
-  s.description = "TODO: Description of SessionJsonizer."
+  s.homepage    = "https://github.com/pixta-dev/rails-session_jsonizer"
+  s.summary     = "Serialize Rails 3 / 4 session as JSON"
+  s.description = "session_jsonizer is a simple library for Rails 3 and 4 to
+  serialize session as JSON in the same format."
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
