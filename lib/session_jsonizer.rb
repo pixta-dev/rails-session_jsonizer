@@ -5,8 +5,9 @@ module SessionJsonizer
   def load(value)
     ::Rails.logger.debug "serializer load: #{value}"
     if value.first == '{'
-      ::JSON.load(value).map do |key, value|
-        new_value =
+      Hash[::JSON.load(value).map do |key, value|
+        [
+          key,
           case
           when key == 'flash'
             load_flash(value)
@@ -15,8 +16,8 @@ module SessionJsonizer
           else
             value
           end
-        [key, new_value]
-      end.to_h
+        ]
+      end]
     else
       ::Marshal.load(value)
     end
@@ -25,11 +26,18 @@ module SessionJsonizer
   def dump(session)
     ::Rails.logger.debug "serializer dump: #{session}"
 
-    if session['flash']
-      session['flash'] = dump_flash(session['flash'])
-    end
+    new_session = Hash[session.map do |key, value|
+      [
+        key,
+        if key == 'flash'
+          dump_flash(value)
+        else
+          value
+        end
+      ]
+    end]
 
-    ::JSON.dump(session)
+    ::JSON.dump(new_session)
   end
 
   case Rails::VERSION::MAJOR
