@@ -9,7 +9,7 @@ serialize session into JSON in the same format.
 
 ## Requirement
 
-* Rails 3 or 4
+* Rails 3.1 or later
 
 ## Usage
 
