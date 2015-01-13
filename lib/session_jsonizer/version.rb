@@ -1,3 +1,3 @@
-module SessionJsonizer
+class SessionJsonizer
   VERSION = "0.0.1"
 end

@@ -1,6 +1,4 @@
-module SessionJsonizer
-
-  module_function
+class SessionJsonizer
 
   def load(value)
     ::Rails.logger.debug "serializer load: #{value}"
@@ -39,6 +37,8 @@ module SessionJsonizer
 
     ::JSON.dump(new_session)
   end
+
+  private
 
   case Rails::VERSION::MAJOR
   when 4

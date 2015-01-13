@@ -10,12 +10,12 @@ module ActionDispatch
 
       def get_session(env, sid)
         json = self.class.session_jsons[sid]
-        session = json ? SessionJsonizer.load(json) : {}
+        session = json ? SessionJsonizer.new.load(json) : {}
         [sid, session]
       end
 
       def set_session(env, sid, session_data, options)
-        self.class.session_jsons[sid] = SessionJsonizer.dump(session_data)
+        self.class.session_jsons[sid] = SessionJsonizer.new.dump(session_data)
         sid
       end
 

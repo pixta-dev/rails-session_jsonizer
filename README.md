@@ -26,12 +26,14 @@ flash[:alert] = 'something went wrong'
 require 'session_jsonizer'
 
 # dump
-json = SessionJsonizer.dump(session)
+serializer = SessionJsonizer.new
+
+json = serializer.dump(session)
 
 json # => '{"foo":"bar", "flash":{"alert":"something went wrong"}, ...}'
 
 # load
-session = SessionJsonizer.load(json)
+session = serializer.load(json)
 ```
 
 ### Example: Store session into memcached as JSON using [dalli](https://github.com/mperham/dalli)
@@ -40,5 +42,5 @@ session = SessionJsonizer.load(json)
 # config/initializers/session_store.rb
 
 require 'action_dispatch/middleware/session/dalli_store'
-Rails.application.config.session_store :dalli_store, serializer: SessionJsonizer, ...
+Rails.application.config.session_store :dalli_store, serializer: SessionJsonizer.new, ...
 ```
